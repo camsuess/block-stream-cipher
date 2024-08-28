@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "BE.h"
+#include "BD.h"
 
 int main(int argc, char *argv[]) {
 
@@ -49,6 +50,7 @@ int main(int argc, char *argv[]) {
     //encryption or decryption starts
 
     BE be;
+    BD bd;
 
     if(cipherType == 'B' && modeType == 'E') {
         //begin block encryption
@@ -57,6 +59,7 @@ int main(int argc, char *argv[]) {
 
     if(cipherType == 'B' && modeType == 'D') {
         //begin block decryption
+        bd.decrypt(inputFile, outputFile, keyFile);
     }
 
     if(cipherType == 'S' && modeType == 'E') {
