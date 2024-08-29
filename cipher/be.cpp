@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 void BE::encrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key){
 
     string keyContent;
@@ -21,13 +20,21 @@ void BE::encrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
         blocks.push_back(buffer);
     }
 
-    int bytes = input.gcount();
+    int unformattedBytes = input.gcount();
 
-    if(bytes > 0) {
-        string lastBlock = buffer.substr(0, bytes);
-        lastBlock.append(16 - bytes, static_cast<char>(0x81));
+    if(unformattedBytes > 0) {
+        string lastBlock = buffer.substr(0, unformattedBytes);
+        lastBlock.append(16 - unformattedBytes, static_cast<char>(0x81));
         blocks.push_back(lastBlock);
     }
+
+    //printing for verification
+    // for(const auto& block : blocks){
+    //     for (unsigned char c : block) {
+    //         std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << ' ';
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     //start encryption using the blocks and key
 
@@ -49,14 +56,6 @@ void BE::encrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
         xoredBlocks.push_back(xorResult);
     }
 
-    //for printing xored blocks in hex format for verification
-    for(const auto& block : xoredBlocks){
-        for (unsigned char c : block) {
-            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << ' ';
-        }
-        std::cout << std::endl;
-    }
-
     //byte swapping
     for(auto& block : xoredBlocks){
         size_t start = 0;
@@ -73,14 +72,11 @@ void BE::encrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
                 start = 0;
             }
         }
+    }
+
+    //output to EO.txt
+    for (const auto& block : xoredBlocks) {
         output << block;
     }
 
-    //for printing xored blocks in hex format for verification
-    for(const auto& block : xoredBlocks){
-        for (unsigned char c : block) {
-            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << ' ';
-        }
-        std::cout << std::endl;
-    }
 };

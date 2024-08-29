@@ -16,6 +16,7 @@ void BD::decrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
     vector<string> xoredBlocks;
     string buffer(16, '\0');
 
+
     while(input.read(&buffer[0], 16)){
         xoredBlocks.push_back(buffer);
     }
@@ -27,14 +28,14 @@ void BD::decrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
         lastBlock.append(16 - bytes, static_cast<char>(0x81));
         xoredBlocks.push_back(lastBlock);
     }
-
+    
     //for printing xored blocks in hex format for verification
-    for(const auto& block : xoredBlocks){
-        for (unsigned char c : block) {
-            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << ' ';
-        }
-        std::cout << std::endl;
-    }
+    // for(const auto& block : xoredBlocks){
+    //     for (unsigned char c : block) {
+    //         std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(c) << ' ';
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     //start decryption
 
@@ -66,7 +67,9 @@ void BD::decrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
         while(i < blockLen) {
             //do xor
             unsigned char result = block[i] ^ keyContent[j];
-            xorResult += result;
+            if(result != 0x81){
+                xorResult += result;
+            }
             i++;
             j = (j + 1) % keyLen;
         }

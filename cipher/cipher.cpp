@@ -3,6 +3,8 @@
 #include <fstream>
 #include "BE.h"
 #include "BD.h"
+#include "SE.h"
+#include "SD.h"
 
 int main(int argc, char *argv[]) {
 
@@ -51,6 +53,8 @@ int main(int argc, char *argv[]) {
 
     BE be;
     BD bd;
+    SE se;
+    SD sd;
 
     if(cipherType == 'B' && modeType == 'E') {
         //begin block encryption
@@ -64,10 +68,13 @@ int main(int argc, char *argv[]) {
 
     if(cipherType == 'S' && modeType == 'E') {
         //begin stream encryption
+        se.encrypt(inputFile, outputFile, keyFile);
+
     }
 
     if(cipherType == 'S' && modeType == 'D') {
         //begin steram decryption
+        sd.decrypt(inputFile, outputFile, keyFile);
     }
 
     inputFile.close();
