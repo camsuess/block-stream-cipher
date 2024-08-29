@@ -19,6 +19,10 @@ se1: $(TARGET)
 	./$(TARGET) S /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/input3.txt SEO.txt /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/sk.txt E
 sd1: $(TARGET)
 	./$(TARGET) S /s/chopin/g/under/camsuess/Desktop/dev/cs356/cipher/SEO.txt SDO.txt /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/sk.txt D
+se2: $(TARGET)
+	./$(TARGET) S /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/input4.txt SEO.txt /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/sk.txt E
+sd2: $(TARGET)
+	./$(TARGET) S /s/chopin/g/under/camsuess/Desktop/dev/cs356/cipher/SEO.txt SDO.txt /s/chopin/g/under/camsuess/Desktop/dev/cs356/data/sk.txt D
 
 clean:
 	rm -f $(TARGET)

@@ -11,22 +11,27 @@ void SE::encrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key
     string keyContent;
     getline(key, keyContent);
 
-    size_t keyLen = keyContent.length();
+    vector<char> chars;
     string line;
-    size_t j = 0;
 
     while(getline(input, line)){
-        size_t inputLen = line.length();
-        string xorResult;
-        size_t i = 0;
-
-        while(i < inputLen){
-            unsigned char result = line[i] ^ keyContent[j];
-            xorResult.push_back(result);
-            i++;
-            j = (j+1) % keyLen;
+        for(char c : line){
+            chars.push_back(c);
         }
-        output << xorResult;
+        chars.push_back('\n');
     }
 
+    size_t keyLen = keyContent.length();
+    size_t j = 0;
+    size_t i = 0;
+    string xorResult;
+
+    while(i < chars.size() - 1){
+        unsigned char result = chars[i] ^ keyContent[j];
+        xorResult.push_back(result);
+        i++;
+        j = (j+1) % keyLen;
+
+    }
+    output << xorResult;
 }   
