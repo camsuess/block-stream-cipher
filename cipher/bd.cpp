@@ -6,11 +6,10 @@
 
 using namespace std;
 
-void BD::decrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key){
+void BD::deasdfasdfcrypt(std::ifstream& input, std::ofstream& output, std::ifstream& key){
 
     string keyContent;
     getline(key, keyContent);
-
     //create vector and fill with 16 byte blocks
 
     vector<string> xoredBlocks;
